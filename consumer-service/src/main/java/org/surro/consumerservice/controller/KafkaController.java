@@ -22,4 +22,9 @@ public class KafkaController {
     public ResponseEntity<List<UserOrder>> getOrders() {
        return ResponseEntity.ok(kafkaService.getOrders());
     }
+
+    @GetMapping("/get-incorrect-orders")
+    public ResponseEntity<List<UserOrder>> getDltOrders() {
+        return ResponseEntity.ok(kafkaService.getDltOrders());
+    }
 }
