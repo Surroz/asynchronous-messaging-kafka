@@ -30,7 +30,7 @@ public class KafkaService {
             )
     public void receiveOrder(UserOrder userOrder) {
         if (BigDecimal.ZERO.compareTo(userOrder.totalPrice()) >= 0)
-            throw new IllegalArgumentException("UserOrder totalPrice  incorrect vlue: " + userOrder.totalPrice());
+            throw new IllegalArgumentException("UserOrder totalPrice  incorrect value: " + userOrder.totalPrice());
         orders.add(userOrder);
     }
 
