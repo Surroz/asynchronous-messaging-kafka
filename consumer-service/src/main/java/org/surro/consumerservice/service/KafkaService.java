@@ -10,7 +10,6 @@ import org.springframework.kafka.retrytopic.TopicSuffixingStrategy;
 import org.springframework.stereotype.Service;
 import org.surro.consumerservice.model.UserOrder;
 
-import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -29,7 +28,7 @@ public class KafkaService {
             exclude = IllegalArgumentException.class
             )
     public void receiveOrder(UserOrder userOrder) {
-        if (BigDecimal.ZERO.compareTo(userOrder.totalPrice()) >= 0)
+        if (userOrder.totalPrice() <= 0)
             throw new IllegalArgumentException("UserOrder totalPrice  incorrect value: " + userOrder.totalPrice());
         orders.add(userOrder);
     }

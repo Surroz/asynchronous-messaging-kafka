@@ -2,6 +2,14 @@ spring:
   application:
     name: consumer-service
   kafka:
+    producer:
+      key-serializer: org.apache.kafka.common.serialization.StringSerializer
+      value-serializer: org.springframework.kafka.support.serializer.JacksonJsonSerializer
+      properties:
+        spring:
+          json:
+            type:
+              mapping: user-order-alias:org.surro.consumerservice.model.UserOrder
     consumer:
       bootstrap-servers: localhost:9092
       group-id: user-order-group
