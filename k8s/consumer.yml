@@ -1,0 +1,39 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: consumer-service
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: consumer-service
+  template:
+    metadata:
+      labels:
+        app: consumer-service
+    spec:
+      containers:
+        - name: consumer-service
+          image: ghcr.io/surroz/consumer-service:1.0.0
+          env:
+            - name: SPRING_KAFKA_CONSUMER_BOOTSTRAP_SERVERS
+              value: "kafka-0.kafka-headless:9093"
+            - name: SPRING_KAFKA_PRODUCER_BOOTSTRAP_SERVERS
+              value: "kafka-0.kafka-headless:9093"
+          ports:
+            - containerPort: 8081
+      imagePullSecrets:
+        - name: ghcr-secret
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: consumer-service
+spec:
+  type: NodePort
+  selector:
+    app: consumer-service
+  ports:
+    - port: 8081
+      targetPort: 8081
+      nodePort: 30081
